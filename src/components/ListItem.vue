@@ -1,8 +1,13 @@
 <template>
   <li class="list-item">
     <span :title="item.desc">{{ item.title }}</span>
-    <span @click="$emit('removeItemHandler', item.id)" title="Remove">Delete</span>
-    <span @click="$emit('editItemHandler', item.id)" title="Rename">Edit</span>
+    <span @click="$emit('removeItemHandler', item.id)" title="Remove">
+      <i class="fa-solid fa-trash-can"></i>
+    </span>
+    <span @click="$emit('editItemHandler', item.id)" title="Rename">
+      <i class="fa-regular fa-pen-to-square"></i>
+    </span>
+    <i class="vue fa-brands fa-vuejs"></i>
   </li>
 </template>
 <script>
@@ -29,7 +34,7 @@ export default {
   }
   .list-item span:first-child {
     display: inline-block;
-    width: 50%;
+    width: 75%;
     padding: 10px 0;
     cursor: pointer;
   }
@@ -40,14 +45,19 @@ export default {
     color: rgb(236, 110, 110);
     cursor: pointer;
   }
-  span:last-child {
+  span:nth-child(3) {
     cursor: pointer;
     color: cornflowerblue;
+    margin-right: 10px;
   }
-  span:last-child:hover {
+  span:nth-child(3):hover {
     color: rgb(24, 67, 146);
   }
   span:nth-child(2):hover {
     color: rgb(207, 0, 0);
+  }
+  .vue {
+    color: #41b883;
+    font-size: 20px;
   }
 </style>
