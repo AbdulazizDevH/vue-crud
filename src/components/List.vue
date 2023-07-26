@@ -1,8 +1,8 @@
 <template>
   <ul class="list">
     <ListItem v-for="item in items" :key="item.id" :item="item" 
-      @remove="$emit('remove', $event)"
-      @edit="$emit('edit', $event)" />
+      @removeItemHandler="$emit('removeItemHandler', $event)"
+      @editItemHandler="$emit('editItemHandler', $event)" />
   </ul>
 </template>
 

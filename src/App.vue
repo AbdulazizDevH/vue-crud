@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <AddForm @createItem="createItem" />
-    <List @edit="edit" @remove="remove" :items="items" />
-    <EditItemModal @edit="show" :class="{none: !showModal}" />
+    <AddForm @createItem="createItemHandler" />
+    <List @editItemHandler="editItemHandler" @removeItemHandler="removeItemHandler" :items="items" />
+    <EditItemModal @updateItemHandler="updateItemHandler" :class="{none: !showModal}" />
   </div>
 </template>
 
@@ -19,31 +19,41 @@ export default {
   data() {
     return {
       items: [
-        { id: 1, title: "Evan You", desc: "Evan You is creator of Vue and vite js." },
-        { id: 2, title: "Vue.js", desc: "JavaScript framework" },
-        { id: 3, title: "Supabase", desc: "Alternative of Firebase." },
+        { id: 1, like: false, title: "Evan You", desc: "Evan You is creator of Vue and vite js." },
+        { id: 2, like: false, title: "Vue.js", desc: "JavaScript framework" },
+        { id: 3, like: false, title: "Supabase", desc: "Alternative of Firebase." },
       ],
       showModal: false,
+      editId: "",
     }
   },
   methods: {
-    remove(id) {
+    removeItemHandler(id) {
       this.items = this.items.filter(c => c.id !== id);
     },
-    createItem(item) {
+    createItemHandler(item) {
       const { title, desc } = item;
       if (title) if (desc) if (isNaN(title)) this.items.push(item);
     },
-    edit(id) {
-      this.showModal = id
+    updateItemHandler(item) {
+      if (item.title) {
+        this.items = this.items.filter(c => {
+          if (c.id == this.editId) c.title = item.title;
+          return c;
+        })
+        this.showModal = false;
+      }
+      if (item.desc) {
+        this.items = this.items.filter(c => {
+          if (c.id == this.editId) c.desc = item.desc;
+          return c;
+        })
+        this.showModal = false;
+      }
     },
-    show({target}) {
-      const editItem = this.items.map(item => {
-        if (item.id === this.showModal) item.title = target.value;
-        return item;
-      })
-      this.items = editItem;
-      this.showModal = false
+    editItemHandler(id) {
+      this.showModal = true;
+      this.editId = id;
     }
   },
 }
@@ -56,6 +66,6 @@ export default {
   margin: 50px auto;
 }
 .none {
-  display: none;
+  display: none !important;
 }
 </style>

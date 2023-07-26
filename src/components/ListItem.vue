@@ -1,8 +1,8 @@
 <template>
   <li class="list-item">
     <span :title="item.desc">{{ item.title }}</span>
-    <span @click="$emit('remove', item.id)" title="Remove">Delete</span>
-    <span @click="$emit('edit', item.id)" title="Rename">Edit</span>
+    <span @click="$emit('removeItemHandler', item.id)" title="Remove">Delete</span>
+    <span @click="$emit('editItemHandler', item.id)" title="Rename">Edit</span>
   </li>
 </template>
 <script>
