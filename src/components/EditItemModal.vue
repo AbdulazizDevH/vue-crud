@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <div class="modal" @click="$emit('')">
     <div class="modal-main">
       <div class="modal-close"></div>
       <div class="input-group">

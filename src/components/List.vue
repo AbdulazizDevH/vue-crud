@@ -1,6 +1,7 @@
 <template>
   <ul class="list">
-    <ListItem v-for="item in items" :key="item.id" :item="item" 
+    <ListItem v-for="item in items" :key="item.id" :item="item"
+      @onLikeHandler="$emit('onLikeHandler', $event)"
       @removeItemHandler="$emit('removeItemHandler', $event)"
       @editItemHandler="$emit('editItemHandler', $event)" />
   </ul>

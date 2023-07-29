@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <AddForm @createItem="createItemHandler" />
-    <List @editItemHandler="editItemHandler" @removeItemHandler="removeItemHandler" :items="items" />
+    <List @editItemHandler="editItemHandler" @onLikeHandler="onLikeHandler" @removeItemHandler="removeItemHandler" :items="items" />
     <EditItemModal @updateItemHandler="updateItemHandler" :class="{none: !showModal}" />
   </div>
 </template>
@@ -28,6 +28,12 @@ export default {
     }
   },
   methods: {
+    onLikeHandler(id) {
+      this.items = this.items.map(l => {
+        if (l.id == id) l.like = !l.like;
+        return l;
+      })
+    },
     removeItemHandler(id) {
       this.items = this.items.filter(c => c.id !== id);
     },
@@ -35,17 +41,17 @@ export default {
       const { title, desc } = item;
       if (title) if (desc) if (isNaN(title)) this.items.push(item);
     },
-    updateItemHandler(item) {
-      if (item.title) {
+    updateItemHandler({title, desc}, modal) {
+      if (title) {
         this.items = this.items.filter(c => {
-          if (c.id == this.editId) c.title = item.title;
+          if (c.id == this.editId) c.title = title;
           return c;
         })
         this.showModal = false;
       }
-      if (item.desc) {
+      if (desc) {
         this.items = this.items.filter(c => {
-          if (c.id == this.editId) c.desc = item.desc;
+          if (c.id == this.editId) c.desc = desc;
           return c;
         })
         this.showModal = false;

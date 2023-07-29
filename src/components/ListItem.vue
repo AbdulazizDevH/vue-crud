@@ -1,6 +1,6 @@
 <template>
-  <li class="list-item">
-    <span :title="item.desc">{{ item.title }}</span>
+  <li class="list-item" :class="{like: item.like}">
+    <span @click="$emit('onLikeHandler', item.id)" :title="item.desc">{{ item.title }}</span>
     <span @click="$emit('removeItemHandler', item.id)" title="Remove">
       <i class="fa-solid fa-trash-can"></i>
     </span>
@@ -59,5 +59,15 @@ export default {
   .vue {
     color: #41b883;
     font-size: 20px;
+    transform: translateX(35px);
+    opacity: 0;
+    transition: all 0.15s ease-in;
+  }
+  .list-item.like .vue {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .list-item.like span:first-child {
+    color: #41b883;
   }
 </style>
